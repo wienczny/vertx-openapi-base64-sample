@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Sample
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+paths:
+  /label:
+    post:
+      operationId: createLabel
+      x-vertx-event-bus: sample.base64-manager
+      summary: Create new Label
+      description: Create a new label for testing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Label'
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Label'
+components:
+  schemas:
+    Label:
+      type: object
+      properties:
+        data:
+          type: string
+          format: byte
+        mimeType:
+          type: string
